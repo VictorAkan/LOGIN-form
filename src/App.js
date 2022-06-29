@@ -1,23 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
+import SideImg from './components/SideImg';
+import Form from './components/Form';
+import { useState } from "react"
+import Validation from './components/validationCard';
 
 function App() {
+  const [submit, setSubmit] = useState(true)
+  const [name, setName] = useState("")
+  const onSubmit = (e) => {
+    e.preventDefault();
+    setSubmit(false)
+  }
+  const onChange = ({target: {value}}) => {
+    setName(value)
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container-fluid">
+      <div className="App">
+        { submit ? <div className="row">
+        <SideImg />
+        <Form onSubmit={onSubmit} name={name} onChange={onChange} />
+        </div> : <Validation userName={name} />}
+      </div>
     </div>
   );
 }
